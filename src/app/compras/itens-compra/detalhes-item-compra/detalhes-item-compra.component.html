@@ -1,0 +1,109 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <form class="form-group" role="form" [formGroup]="formularioItemCompra" (ngSubmit)="salvar()">
+                <div class="card card-primary">
+
+                    <div class="card-header">
+                        <h3 class="card-title">Item da Compra</h3>
+
+                        <div class="card-tools">
+
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="inputName">Produto:</label>
+                                <select (change)="vincularVariacoesProduto()" formControlName="produto"
+                                    class="form-control select2 select2-hidden-accessible" style="width: 100%;" [compareWith]="compareSelect">
+                                    <option>Selecione um produto</option>
+                                    <!--(click)="teste(produto.id)"-->
+                                    <option *ngFor="let produto of produtos$ | async" [ngValue]="produto">{{ produto.nome }}
+                                    </option>
+                                </select>
+                                <small class="form-text text-danger" *ngIf="
+                                  !formularioItemCompra.get('produto')?.valid &&
+                                  formularioItemCompra.get('produto')?.touched
+                                ">Selecione o produto!</small>
+                            </div>
+    
+    
+    
+                            <div class="form-group col-4">
+                                <label for="inputName">Variação do Produto:</label>
+                                <select formControlName="variacao_produto" class="form-control select2" style="width: 100%;"
+                                    [compareWith]="compareSelect">
+                                    <option>Selecione a variação do produto</option>
+                                    <option *ngFor="let variacoes_produto of variacoes_produto$ | async"
+                                        [ngValue]="variacoes_produto">{{ variacoes_produto.descricao }}</option>
+                                </select>
+                                <small class="form-text text-danger" *ngIf="
+                                  !formularioItemCompra.get('variacao_produto')?.valid &&
+                                  formularioItemCompra.get('variacao_produto')?.touched
+                                ">Selecione a variação do produto!</small>
+                            </div>
+    
+                            <div *ngIf="!id" class="form-group col-2">
+                                <label for="inputName">Quantidade:</label>
+                                <input type="text" placeholder="Digite a quantidade" class="form-control"
+                                    formControlName="quantidade">
+                                <small class="form-text text-danger" *ngIf="
+                                    !formularioItemCompra.get('quantidade')?.valid &&
+                                    formularioItemCompra.get('quantidade')?.touched
+                                  ">Insira a quantidade!</small>
+                            </div>
+
+                            <div class="form-group col-2">
+                                <label for="inputName">Valor do Produto:</label>
+                                <input type="text" placeholder="Digite o valor do produto" class="form-control"
+                                    formControlName="valor">
+                                <small class="form-text text-danger" *ngIf="
+                                    !formularioItemCompra.get('valor')?.valid &&
+                                    formularioItemCompra.get('valor')?.touched
+                                  ">Valor do produto incorreto!</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="inputName">Status do Produto:</label>
+                                <select formControlName="status_item_compra"
+                                    class="form-control select2" style="width: 100%;" [compareWith]="compareSelect">
+                                    <option>Selecione um status</option>
+                                    <option *ngFor="let status_item_compra of lista_status_item_compra$ | async" [ngValue]="status_item_compra">{{ status_item_compra.descricao }}
+                                    </option>
+                                </select>
+                                <small class="form-text text-danger" *ngIf="
+                                  !formularioItemCompra.get('status_item_compra')?.valid &&
+                                  formularioItemCompra.get('status_item_compra')?.touched
+                                ">Selecione um status!</small>
+                            </div>
+    
+                            <div class="form-group col-8">
+                                <label for="inputName">Link do Anuncio:</label>
+                                <input type="text" placeholder="Digite o link do anuncio" class="form-control"
+                                    formControlName="link_anuncio">
+                                <small class="form-text text-danger" *ngIf="
+                                    !formularioItemCompra.get('link_anuncio')?.valid &&
+                                    formularioItemCompra.get('link_anuncio')?.touched
+                                  ">Link do anúncio está incorreto!</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-secondary"
+                                [routerLink]="['/compras/detalhes-compra/', idCompra]">Cancelar</button>
+                            <button type="submit" class="btn btn-success float-right">Salvar</button>
+                        </div>
+                    </div><!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </form>
+        </div>
+    </div>
+</div>

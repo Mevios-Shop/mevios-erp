@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Status Compra</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-primary" routerLink="/compras/status-compra/detalhes-status-compra">
+                            Adicionar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let statusCompra of listaStatusCompra">
+                                <td>#</td>
+                                <td>
+                                    <p>{{ statusCompra.descricao }}</p>
+                                </td>
+                                <td class="project-actions text-right">
+                                    <button class="btn btn-info btn-sm"  [routerLink]="['/compras/status-compra/detalhes-status-compra/', statusCompra.id]">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Editar
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" (click)="deletar(statusCompra.id)">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Deletar
+                                      </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
