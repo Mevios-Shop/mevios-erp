@@ -155,6 +155,7 @@
                   <p>Estoque</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <fa-icon [icon]="faBox"></fa-icon>
@@ -184,6 +185,31 @@
                   </li>
                 </ul>
               </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <fa-icon [icon]="faBox"></fa-icon>
+                  <p>
+                    Vendas
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a routerLink="/vendas" class="nav-link">
+                      <fa-icon [icon]="faWarehouse"></fa-icon>
+                      <p>Venda</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a routerLink="/compras/status-compra" class="nav-link">
+                      <fa-icon [icon]="faWarehouse"></fa-icon>
+                      <p>Status Venda</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
               <li class="nav-item">
                 <a routerLink="/plataformas" class="nav-link">
                   <fa-icon [icon]="faWarehouse"></fa-icon>

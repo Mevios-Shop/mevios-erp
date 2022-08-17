@@ -10,6 +10,7 @@ import { ComponentesGeraisModule } from './componentes-gerais/componentes-gerais
 import { EstoqueModule } from './produtos/estoque/estoque.module';
 import { ComprasModule } from './compras/compras.module';
 import { PlataformasModule } from './plataformas/plataformas.module';
+import { VendasModule } from './vendas/vendas.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PlataformasModule } from './plataformas/plataformas.module';
     ComponentesGeraisModule,
     EstoqueModule,
     ComprasModule,
-    PlataformasModule
+    PlataformasModule,
+    VendasModule
   ],
   providers: [],
   bootstrap: [AppComponent]

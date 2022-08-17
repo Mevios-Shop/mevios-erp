@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListarEstoqueComponent } from './produtos/estoque/listar-estoque/listar-estoque.component';
 import { ListarProdutosComponent } from './produtos/produto/listar-produtos/listar-produtos.component';
+import { ListarVendasComponent } from './vendas/venda/listar-vendas/listar-vendas.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -11,6 +12,10 @@ const APP_ROUTES: Routes = [
   {
     path: "estoque",
     component: ListarEstoqueComponent
+  },
+  {
+    path: "vendas",
+    component: ListarVendasComponent
   }
 ];
 
