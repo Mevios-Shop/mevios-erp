@@ -64,6 +64,8 @@ export class CompraService {
       "codigo_pedido": compra.codigo_pedido,
       "status_compra": compra.status_compra.descricao
     }
+
+    console.log({compra: COMPRA})
     
     if (compra.id !== 0) {
       //console.log("atualizar")
