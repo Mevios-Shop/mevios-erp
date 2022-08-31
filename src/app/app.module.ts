@@ -27,13 +27,13 @@ import { AutenticacaoModule } from './autenticacao/autenticacao.module';
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    AutenticacaoModule,
     ProdutosModule,
     ComponentesGeraisModule,
     EstoqueModule,
     ComprasModule,
     PlataformasModule,
-    VendasModule,
-    AutenticacaoModule
+    VendasModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
