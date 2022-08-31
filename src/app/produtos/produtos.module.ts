@@ -7,7 +7,7 @@ import { DetalhesProdutoComponent } from './produto/detalhes-produto/detalhes-pr
 import { ListarVariacoesProdutoComponent } from './variacao-produto/listar-variacoes-produto/listar-variacoes-produto.component';
 import { DetalhesVariacaoProdutoComponent } from './variacao-produto/detalhes-variacao-produto/detalhes-variacao-produto.component';
 import { ComponentesGeraisModule } from '../componentes-gerais/componentes-gerais.module';
-import { ProdutosRoutingModule } from './produtos-routing.module';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -23,7 +23,7 @@ import { ProdutosRoutingModule } from './produtos-routing.module';
     ComponentesGeraisModule,
     FormsModule,
     HttpClientModule,
-    ProdutosRoutingModule,
+    AppRoutingModule,
     ReactiveFormsModule
   ]
 })

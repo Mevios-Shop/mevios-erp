@@ -6,7 +6,12 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "heroku-build": "ng build --prod"
+  },
+  "engines": {
+    "node": "18.2.0",
+    "npm": "8.9.0"
   },
   "private": true,
   "dependencies": {
@@ -24,8 +29,10 @@
     "@popperjs/core": "^2.11.5",
     "admin-lte": "3.2",
     "bootstrap": "^5.2.0-beta1",
+    "express": "^4.18.1",
     "jquery": "^3.6.0",
     "ngx-toastr": "^14.3.0",
+    "path": "^0.12.7",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

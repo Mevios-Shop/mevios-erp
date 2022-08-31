@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from 'src/app/autenticacao/utils/security.util';
 import { ItemCompra } from 'src/app/compras/itens-compra/item-compra.model';
 import { Estoque } from './estoque.model';
 
@@ -14,8 +15,16 @@ export class EstoqueService {
 
   constructor(private http: HttpClient) { }
 
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodosAgrupados(): Observable<any[]> {
-    return this.http.get<any[]>(this.url_estoque_disponivel).pipe(
+    
+    return this.http.get<any[]>(this.url_estoque_disponivel, { headers: this.composeHeaders() })
+    .pipe(
       retry(10),
       map((resposta: any[]) => {
         return resposta
@@ -45,7 +54,7 @@ export class EstoqueService {
   //Observable<Estoque[]>
   lancarItensPorCompraId(itens_compra: ItemCompra[]): Observable<Estoque[]> {
     const LISTA_ESTOQUE: Estoque[] = this.converterItensCompraEmListaEstoque(itens_compra)
-    return this.http.post<Estoque[]>(`${this.url}`, LISTA_ESTOQUE)    
+    return this.http.post<Estoque[]>(`${this.url}`, LISTA_ESTOQUE, {headers: this.composeHeaders()})    
   }
 
   private handleError(error: HttpErrorResponse) {

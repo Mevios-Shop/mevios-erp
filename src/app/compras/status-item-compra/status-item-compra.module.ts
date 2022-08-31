@@ -4,7 +4,7 @@ import { ListarStatusItemCompraComponent } from './listar-status-item-compra/lis
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DetalhesStatusItemCompraComponent } from './detalhes-status-item-compra/detalhes-status-item-compra.component';
-import { StatusItemCompraRoutingModule } from './status-item-compra-routing.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 
 
@@ -18,7 +18,7 @@ import { StatusItemCompraRoutingModule } from './status-item-compra-routing.modu
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StatusItemCompraRoutingModule
+    AppRoutingModule
   ]
 })
 export class StatusItemCompraModule { }

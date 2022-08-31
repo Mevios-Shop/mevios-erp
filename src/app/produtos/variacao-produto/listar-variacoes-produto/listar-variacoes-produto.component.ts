@@ -17,15 +17,19 @@ export class ListarVariacoesProdutoComponent implements OnInit {
 
   variacaoProdutoSelecionada: string = ""
 
-  constructor(private activatedRoute: ActivatedRoute, private variacaoProdutoService: VariacaoProdutoService) { 
+  constructor(private activatedRoute: ActivatedRoute, private variacaoProdutoService: VariacaoProdutoService) {
     activatedRoute.url.subscribe((url) => {
     });
   }
 
   ngOnInit(): void {
+
     this.activatedRoute.params.subscribe(params => {
-      this.listar(params['id_produto'])
-      this.idProduto = params['id_produto']
+      if (params['id_produto']) {
+        this.listar(params['id_produto'])
+        this.idProduto = params['id_produto']
+      }
+
     });
   }
 

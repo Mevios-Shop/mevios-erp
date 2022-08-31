@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from 'src/app/autenticacao/utils/security.util';
 import { StatusCompra } from './status-compra.model';
 
 @Injectable({
@@ -12,8 +13,14 @@ export class StatusCompraService {
 
   constructor(private http: HttpClient) { }
 
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodos(): Observable<StatusCompra[]> {
-    return this.http.get<StatusCompra[]>(this.url).pipe(
+    return this.http.get<StatusCompra[]>(this.url, {headers: this.composeHeaders()}).pipe(
       retry(10),
       map((resposta: StatusCompra[]) => {
         return resposta
@@ -23,7 +30,7 @@ export class StatusCompraService {
   }
 
   buscarTodos2(): Observable<StatusCompra[]> {
-    return this.http.get<StatusCompra[]>(this.url).pipe(
+    return this.http.get<StatusCompra[]>(this.url, {headers: this.composeHeaders()}).pipe(
       retry(10),
       map((resposta: StatusCompra[]) => {
         return resposta
@@ -33,7 +40,7 @@ export class StatusCompraService {
   }
 
   buscarPorId(id: number): Observable<StatusCompra> {
-    return this.http.get<StatusCompra>(`${this.url}/${id}`)
+    return this.http.get<StatusCompra>(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: StatusCompra) => {
@@ -49,7 +56,7 @@ export class StatusCompraService {
     
     if (statusCompra.id !== 0) {
       //console.log("atualizar")
-      return this.http.patch(`${this.url}/${statusCompra.id}`, statusCompra).pipe(
+      return this.http.patch(`${this.url}/${statusCompra.id}`, statusCompra, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -57,7 +64,7 @@ export class StatusCompraService {
     }
     else{
       //console.log("inserir")
-      return this.http.post(`${this.url}`, statusCompra).pipe(
+      return this.http.post(`${this.url}`, statusCompra, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -66,7 +73,7 @@ export class StatusCompraService {
   }
 
   deletar(id: string): Observable<StatusCompra> {
-    return this.http.delete(`${this.url}/${id}`)
+    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       map((resposta: any) => {
         return resposta

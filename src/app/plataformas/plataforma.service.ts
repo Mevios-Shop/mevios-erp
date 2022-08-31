@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from '../autenticacao/utils/security.util';
 import { Plataforma } from './plataforma.model';
 
 @Injectable({
@@ -13,8 +14,14 @@ export class PlataformaService {
 
   constructor(private http: HttpClient) { }
 
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodos(): Observable<Plataforma[]> {
-    return this.http.get<Plataforma[]>(this.url).pipe(
+    return this.http.get<Plataforma[]>(this.url, {headers: this.composeHeaders()}).pipe(
       retry(10),
       map((resposta: Plataforma[]) => {
         return resposta
@@ -24,7 +31,7 @@ export class PlataformaService {
   }
 
   buscarTodos2(): Observable<Plataforma[]> {
-    return this.http.get<Plataforma[]>(this.url).pipe(
+    return this.http.get<Plataforma[]>(this.url, {headers: this.composeHeaders()}).pipe(
       retry(10),
       map((resposta: Plataforma[]) => {
         return resposta
@@ -34,7 +41,7 @@ export class PlataformaService {
   }
 
   buscarPorId(id: number): Observable<Plataforma> {
-    return this.http.get<Plataforma>(`${this.url}/${id}`)
+    return this.http.get<Plataforma>(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: Plataforma) => {
@@ -45,7 +52,7 @@ export class PlataformaService {
   }
 
   buscarId(id: number): Observable<number> {
-    return this.http.get<Plataforma>(`${this.url}/${id}`)
+    return this.http.get<Plataforma>(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: any) => {
@@ -56,14 +63,14 @@ export class PlataformaService {
   }
 
   buscarPorDescricao(descricao: string): Observable<Plataforma> {
-    return this.http.get<Plataforma>(`${this.url2}/${descricao}`)
+    return this.http.get<Plataforma>(`${this.url2}/${descricao}`, {headers: this.composeHeaders()})
   }
 
   salvar(plataforma: Plataforma): Observable<any> {
     
     if (plataforma.id !== 0) {
       //console.log("atualizar")
-      return this.http.patch(`${this.url}/${plataforma.id}`, plataforma).pipe(
+      return this.http.patch(`${this.url}/${plataforma.id}`, plataforma, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -71,7 +78,7 @@ export class PlataformaService {
     }
     else{
       //console.log("inserir")
-      return this.http.post(`${this.url}`, plataforma).pipe(
+      return this.http.post(`${this.url}`, plataforma, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -80,7 +87,7 @@ export class PlataformaService {
   }
 
   deletar(id: string): Observable<Plataforma> {
-    return this.http.delete(`${this.url}/${id}`)
+    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       map((resposta: any) => {
         return resposta

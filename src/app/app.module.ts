@@ -11,10 +11,16 @@ import { EstoqueModule } from './produtos/estoque/estoque.module';
 import { ComprasModule } from './compras/compras.module';
 import { PlataformasModule } from './plataformas/plataformas.module';
 import { VendasModule } from './vendas/vendas.module';
+import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
+import { MainComponent } from './shared/components/main/main.component';
+import { AuthService } from './autenticacao/auth.service';
+import { AutenticacaoModule } from './autenticacao/autenticacao.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavBarComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,9 +32,10 @@ import { VendasModule } from './vendas/vendas.module';
     EstoqueModule,
     ComprasModule,
     PlataformasModule,
-    VendasModule
+    VendasModule,
+    AutenticacaoModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

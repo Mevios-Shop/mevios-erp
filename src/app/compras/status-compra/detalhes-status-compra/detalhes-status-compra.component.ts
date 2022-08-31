@@ -23,7 +23,10 @@ export class DetalhesStatusCompraComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.buscarStatusCompra(params['id'])
+      if (params['id']) {
+        this.buscarStatusCompra(params['id'])
+        
+      }
     })
   }
 

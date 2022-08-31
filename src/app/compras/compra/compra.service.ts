@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from 'src/app/autenticacao/utils/security.util';
 import { Plataforma } from 'src/app/plataformas/plataforma.model';
 import { PlataformaService } from 'src/app/plataformas/plataforma.service';
 import { Compra } from './compra.model';
@@ -17,8 +18,15 @@ export class CompraService {
 
   constructor(private http: HttpClient, private plataformaService: PlataformaService) { }
 
+  
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodos(): Observable<Compra[]> {
-    return this.http.get<Compra[]>(this.url)
+    return this.http.get<Compra[]>(this.url, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: Compra[]) => {
@@ -29,7 +37,7 @@ export class CompraService {
   }
 
   buscarPorStatusCompraId(id: number): Observable<Compra[]> {
-    return this.http.get<Compra>(`${this.url_compras_por_status}/${id}`)
+    return this.http.get<Compra>(`${this.url_compras_por_status}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: any) => {
@@ -40,7 +48,7 @@ export class CompraService {
   }
 
   buscarPorId(id: number): Observable<Compra> {
-    return this.http.get<Compra>(`${this.url}/${id}`)
+    return this.http.get<Compra>(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: Compra) => {
@@ -69,7 +77,7 @@ export class CompraService {
     
     if (compra.id !== 0) {
       //console.log("atualizar")
-      return this.http.patch(`${this.url}/${compra.id}`, compra).pipe(
+      return this.http.patch(`${this.url}/${compra.id}`, compra, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -77,7 +85,7 @@ export class CompraService {
     }
     else{
       //console.log("inserir")
-      return this.http.post(`${this.url}`, compra).pipe(
+      return this.http.post(`${this.url}`, compra, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -86,7 +94,7 @@ export class CompraService {
   }
 
   deletar(id: string): Observable<Compra> {
-    return this.http.delete(`${this.url}/${id}`)
+    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       map((resposta: any) => {
         return resposta

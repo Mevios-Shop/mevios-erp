@@ -3,7 +3,8 @@ import { faBox, faBoxes, faCoffee, faWarehouse } from '@fortawesome/free-solid-s
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  //templateUrl: './app.component.html',
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {

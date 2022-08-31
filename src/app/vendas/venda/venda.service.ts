@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from 'src/app/autenticacao/utils/security.util';
 import { Venda } from './venda.model';
 
 @Injectable({
@@ -12,8 +13,14 @@ export class VendaService {
 
   constructor(private http: HttpClient) { }
 
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodas(): Observable<Venda[]> {
-    return this.http.get<Venda[]>(this.url)
+    return this.http.get<Venda[]>(this.url, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: Venda[]) => {
