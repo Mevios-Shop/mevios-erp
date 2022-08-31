@@ -1,1 +1,1 @@
-web: ng start
+web: node start
