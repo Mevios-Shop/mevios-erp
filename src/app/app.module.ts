@@ -30,8 +30,8 @@ import { AutenticacaoModule } from './autenticacao/autenticacao.module';
     AutenticacaoModule,
     ProdutosModule,
     ComponentesGeraisModule,
-    EstoqueModule,
     ComprasModule,
+    EstoqueModule,
     PlataformasModule,
     VendasModule
   ],
