@@ -4,6 +4,7 @@ import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import { Security } from 'src/app/autenticacao/utils/security.util';
 import { Plataforma } from 'src/app/plataformas/plataforma.model';
 import { PlataformaService } from 'src/app/plataformas/plataforma.service';
+import { environment } from 'src/environments/environment';
 import { Compra } from './compra.model';
 
 @Injectable({
@@ -11,8 +12,10 @@ import { Compra } from './compra.model';
 })
 export class CompraService {
 
-  private url: string = "http://localhost:3000/compras"
-  private url_compras_por_status: string = "http://localhost:3000/compra-por-status"
+  
+
+  private url: string = environment.api + 'compras';
+  private url_compras_por_status: string = environment.api + "compra-por-status"
 
   private plataforma?: Plataforma
 

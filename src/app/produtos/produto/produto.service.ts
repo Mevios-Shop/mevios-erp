@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import { Security } from 'src/app/autenticacao/utils/security.util';
+import { environment } from 'src/environments/environment';
 import { Produto } from './produto.model';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Produto } from './produto.model';
 })
 export class ProdutoService {
 
-  private url: string = "http://localhost:3000/produtos"
+  private url: string = environment.api + "produtos"
 
   constructor(private http: HttpClient) { }
 

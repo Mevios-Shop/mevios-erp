@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import { Security } from 'src/app/autenticacao/utils/security.util';
 import { ItemCompra } from 'src/app/compras/itens-compra/item-compra.model';
+import { environment } from 'src/environments/environment';
 import { Estoque } from './estoque.model';
 
 @Injectable({
@@ -10,8 +11,8 @@ import { Estoque } from './estoque.model';
 })
 export class EstoqueService {
 
-  private url_estoque_disponivel: string = "http://localhost:3000/estoque_disponivel"
-  private url: string = "http://localhost:3000/estoque"
+  private url_estoque_disponivel: string = environment.api + "estoque_disponivel"
+  private url: string = environment.api + "estoque"
 
   constructor(private http: HttpClient) { }
 

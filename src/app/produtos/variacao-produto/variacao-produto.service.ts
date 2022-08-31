@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import { Security } from 'src/app/autenticacao/utils/security.util';
+import { environment } from 'src/environments/environment';
 import { VariacaoProduto } from './variacao-produto.model';
 
 @Injectable({
@@ -9,8 +10,8 @@ import { VariacaoProduto } from './variacao-produto.model';
 })
 export class VariacaoProdutoService {
 
-  private url: string = "http://localhost:3000/variacoes_produto"
-  private url2: string = "http://localhost:3000/variacao_produto"
+  private url: string = environment.api + "variacoes_produto"
+  private url2: string = environment.api + "variacao_produto"
 
   constructor(private http: HttpClient) { }
 

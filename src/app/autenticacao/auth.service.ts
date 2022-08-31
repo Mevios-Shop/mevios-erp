@@ -6,23 +6,33 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { Injectable } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
 import { catchError, map, Observable, throwError } from "rxjs";
+import { environment } from "src/environments/environment";
 import { Security } from "./utils/security.util";
 
 
 @Injectable()
 export class AuthService implements CanActivate {
 
-  private url = 'http://localhost:3000/auth';
+  private url = environment.api + 'auth';
 
   constructor(private router: Router, private readonly http: HttpClient) { }
 
+  
+
   canActivate(): boolean {
     const token = Security.getToken();
-    if (token) {
+    console.log('eu aqui',this.tokenExpired(token))
+    if (!this.tokenExpired(token)) {
       return true;
     }
+    Security.clear();
     this.router.navigate(['/login']);
     return false;
+  }
+
+  private tokenExpired(token: string) {
+    const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    return (Math.floor((new Date).getTime() / 1000)) >= expiry;
   }
 
   public composeHeaders() {

@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Security } from '../autenticacao/utils/security.util';
 import { Plataforma } from './plataforma.model';
 
@@ -9,8 +10,8 @@ import { Plataforma } from './plataforma.model';
 })
 export class PlataformaService {
 
-  private url: string = "http://localhost:3000/plataformas"
-  private url2: string = "http://localhost:3000/plataforma-descricao"
+  private url: string = environment.api + "plataformas"
+  private url2: string = environment.api + "plataforma-descricao"
 
   constructor(private http: HttpClient) { }
 

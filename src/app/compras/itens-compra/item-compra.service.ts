@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import { Security } from 'src/app/autenticacao/utils/security.util';
+import { environment } from 'src/environments/environment';
 import { ItemCompra } from './item-compra.model';
 
 @Injectable({
@@ -9,8 +10,8 @@ import { ItemCompra } from './item-compra.model';
 })
 export class ItemCompraService {
 
-  private url: string = "http://localhost:3000/itens_compra"
-  private url2: string = "http://localhost:3000/item_compra"
+  private url: string = environment.api + "itens_compra"
+  private url2: string = environment.api + "item_compra"
 
   constructor(private http: HttpClient) { }
 

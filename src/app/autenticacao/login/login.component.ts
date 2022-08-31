@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /*
     const token = Security.getToken();
     try {
       if (token) {
@@ -48,7 +49,9 @@ export class LoginComponent implements OnInit {
     } catch (error) {
       localStorage.clear();
       //this.busy = false;
-    }
+    }*/
+
+    Security.clear();
   }
 
   submit() {

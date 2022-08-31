@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import { Security } from 'src/app/autenticacao/utils/security.util';
+import { environment } from 'src/environments/environment';
 import { StatusCompra } from './status-compra.model';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { StatusCompra } from './status-compra.model';
 })
 export class StatusCompraService {
 
-  private url: string = "http://localhost:3000/status_compra"
+  private url: string = environment.api + "status_compra"
 
   constructor(private http: HttpClient) { }
 

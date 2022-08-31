@@ -19,7 +19,6 @@ import { MainComponent } from './shared/components/main/main.component';
 import { ListarVendasComponent } from './vendas/venda/listar-vendas/listar-vendas.component';
 
 const APP_ROUTES: Routes = [
-
   {
     path: "",
     canActivate: [AuthService],
