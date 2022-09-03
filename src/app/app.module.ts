@@ -20,7 +20,7 @@ import { AutenticacaoModule } from './autenticacao/autenticacao.module';
   declarations: [
     AppComponent,
     NavBarComponent,
-    MainComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

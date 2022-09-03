@@ -29,14 +29,13 @@
             "styles": [
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css", 
+              "node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css",
               "node_modules/admin-lte/dist/css/adminlte.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/@popperjs/core/dist/umd/popper.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              
               "node_modules/admin-lte/dist/js/adminlte.min.js",
               "node_modules/admin-lte/plugins/chart.js/Chart.js"
             ]
@@ -108,9 +107,18 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "mevios-erp:build:production",
+            "firebaseProject": "mevios-erp",
+            "firebaseHostingSite": "mevios-erp"
+          }
         }
       }
     }
-  },
-  "defaultProject": "mevios-erp"
+  }
 }

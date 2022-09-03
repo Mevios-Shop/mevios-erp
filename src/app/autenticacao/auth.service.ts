@@ -17,14 +17,16 @@ export class AuthService implements CanActivate {
 
   constructor(private router: Router, private readonly http: HttpClient) { }
 
-  
+
 
   canActivate(): boolean {
     const token = Security.getToken();
-    console.log('eu aqui',this.tokenExpired(token))
-    if (!this.tokenExpired(token)) {
+
+    if (token && !this.tokenExpired(token)) {
+      console.log('eu aqui 2')
       return true;
     }
+    console.log('eu aqui 3')
     Security.clear();
     this.router.navigate(['/login']);
     return false;

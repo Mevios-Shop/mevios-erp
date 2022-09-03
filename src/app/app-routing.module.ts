@@ -20,7 +20,7 @@ import { ListarVendasComponent } from './vendas/venda/listar-vendas/listar-venda
 
 const APP_ROUTES: Routes = [
   {
-    path: "",
+    path: '',
     canActivate: [AuthService],
     component: MainComponent,
     children: [

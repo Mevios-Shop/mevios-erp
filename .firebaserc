@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "mevios-erp"
+  },
+  "targets": {
+    "mevios-erp": {
+      "hosting": {
+        "mevios-erp": [
+          "mevios-erp"
+        ]
+      }
+    }
+  }
+}
