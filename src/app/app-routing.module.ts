@@ -16,6 +16,8 @@ import { DetalhesProdutoComponent } from './produtos/produto/detalhes-produto/de
 import { ListarProdutosComponent } from './produtos/produto/listar-produtos/listar-produtos.component';
 import { DetalhesVariacaoProdutoComponent } from './produtos/variacao-produto/detalhes-variacao-produto/detalhes-variacao-produto.component';
 import { MainComponent } from './shared/components/main/main.component';
+import { ImportacaoVendasComponent } from './vendas/importacao-vendas/importacao-vendas.component';
+import { ListarStatusVendaComponent } from './vendas/status-venda/listar-status-venda/listar-status-venda.component';
 import { ListarVendasComponent } from './vendas/venda/listar-vendas/listar-vendas.component';
 
 const APP_ROUTES: Routes = [
@@ -60,10 +62,20 @@ const APP_ROUTES: Routes = [
         path: "estoque",
         component: ListarEstoqueComponent
       },
+      // Vendas
       {
         path: "vendas",
         component: ListarVendasComponent
       },
+      {
+        path: "vendas/importacao",
+        component: ImportacaoVendasComponent
+      }, 
+      {
+        path: "vendas/status-venda",
+        component: ListarStatusVendaComponent
+      }, 
+      // Fim Vendas
       // Compras
       {
         path: "compras",

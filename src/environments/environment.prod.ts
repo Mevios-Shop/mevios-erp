@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://api.meviosshop.com.br/'
+  api: 'https://api.meviosshop.com.br/'
 };

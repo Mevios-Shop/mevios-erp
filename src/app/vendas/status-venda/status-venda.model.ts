@@ -1,5 +1,5 @@
 export class StatusVenda {
-    id?: number
+    id: number
     descricao: string
 
     constructor(id: number, descricao: string) {

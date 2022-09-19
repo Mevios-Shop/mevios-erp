@@ -23,10 +23,8 @@ export class AuthService implements CanActivate {
     const token = Security.getToken();
 
     if (token && !this.tokenExpired(token)) {
-      console.log('eu aqui 2')
       return true;
     }
-    console.log('eu aqui 3')
     Security.clear();
     this.router.navigate(['/login']);
     return false;

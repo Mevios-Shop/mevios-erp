@@ -29,10 +29,8 @@ export class Security {
     public static getToken(): string {
         const data = localStorage.getItem('me_token');
         if (data) {
-            console.log('entrou no if');
             return data;
         } else {
-            console.log('entrou no else');
             return '';
         }
     }

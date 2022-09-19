@@ -58,6 +58,18 @@ export class EstoqueService {
     return this.http.post<Estoque[]>(`${this.url}`, LISTA_ESTOQUE, {headers: this.composeHeaders()})    
   }
 
+  verificarDisponibilidadeDoProduto(variacao_produto_id: number, quantidade: number): Observable<any> {
+    const url= `${this.url_estoque_disponivel}/${variacao_produto_id}/${quantidade}`
+    return this.http.get<any>(url, {headers: this.composeHeaders()})
+    .pipe(
+      retry(10),
+      map((resposta: any) => {
+        return resposta
+      }),
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

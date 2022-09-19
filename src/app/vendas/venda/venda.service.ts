@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
 import { Security } from 'src/app/autenticacao/utils/security.util';
 import { environment } from 'src/environments/environment';
+import { ImportarVendaInterface } from '../importacao-vendas/interface/importar-venda.interface';
 import { Venda } from './venda.model';
 
 @Injectable({
@@ -10,7 +11,9 @@ import { Venda } from './venda.model';
 })
 export class VendaService {
 
-  private url: string = environment.api + "venda"
+  private baseUrl: string = environment.api;
+
+  private urlVenda: string = this.baseUrl + "venda"
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +24,7 @@ export class VendaService {
   }
 
   buscarTodas(): Observable<Venda[]> {
-    return this.http.get<Venda[]>(this.url, {headers: this.composeHeaders()})
+    return this.http.get<Venda[]>(this.urlVenda, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: Venda[]) => {
@@ -31,8 +34,26 @@ export class VendaService {
     )
   }
 
-  buscarPorId() {
-    
+  buscarPorCodigoPedido(codigo_pedido: string): Observable<Venda> {
+    return this.http.get<Venda>(`${this.urlVenda}/${codigo_pedido}`, {headers: this.composeHeaders()})
+    .pipe(
+      retry(10),
+      map((resposta: Venda) => {
+        return resposta
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  importarVendas(vendas: ImportarVendaInterface[]): Observable<Venda[]> {
+    return this.http.post<Venda[]>(`${this.urlVenda}/importacao`, vendas, {headers: this.composeHeaders()})
+    .pipe(
+      retry(3),
+      map((resposta: Venda[]) => {
+        return resposta
+      }),
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error: HttpErrorResponse) {
