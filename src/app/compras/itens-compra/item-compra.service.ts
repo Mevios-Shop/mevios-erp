@@ -1,6 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from 'src/app/autenticacao/utils/security.util';
+import { environment } from 'src/environments/environment';
 import { ItemCompra } from './item-compra.model';
 
 @Injectable({
@@ -8,13 +10,19 @@ import { ItemCompra } from './item-compra.model';
 })
 export class ItemCompraService {
 
-  private url: string = "http://localhost:3000/itens_compra"
-  private url2: string = "http://localhost:3000/item_compra"
+  private url: string = environment.api + "itens_compra"
+  private url2: string = environment.api + "item_compra"
 
   constructor(private http: HttpClient) { }
 
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodos(id: string): Observable<ItemCompra[]> {
-    return this.http.get<ItemCompra[]>(`${this.url}/${id}`)
+    return this.http.get<ItemCompra[]>(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: ItemCompra[]) => {
@@ -25,7 +33,7 @@ export class ItemCompraService {
   }
 
   buscarPorId(id: number): Observable<ItemCompra> {
-    return this.http.get<ItemCompra>(`${this.url2}/${id}`)
+    return this.http.get<ItemCompra>(`${this.url2}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: ItemCompra) => {
@@ -52,7 +60,7 @@ export class ItemCompraService {
     
     if (itemCompra.id !== 0) {
       //console.log("atualizar")
-      return this.http.patch(`${this.url2}/${itemCompra.id}`, itemCompra).pipe(
+      return this.http.patch(`${this.url2}/${itemCompra.id}`, itemCompra, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -68,7 +76,7 @@ export class ItemCompraService {
         urlInsercao = this.url
       }
       //console.log("inserir")
-      return this.http.post(`${urlInsercao}`, ITEM_COMPRA).pipe(
+      return this.http.post(`${urlInsercao}`, ITEM_COMPRA, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -77,7 +85,7 @@ export class ItemCompraService {
   }
 
   deletar(id: string): Observable<ItemCompra> {
-    return this.http.delete(`${this.url2}/${id}`)
+    return this.http.delete(`${this.url2}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       map((resposta: any) => {
         return resposta

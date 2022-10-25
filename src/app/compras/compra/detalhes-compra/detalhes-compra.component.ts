@@ -105,7 +105,7 @@ export class DetalhesCompraComponent implements OnInit {
       var ANO  = data.split("/")[2];
 
     
-      const NOVA_DATA = ("0"+MES).slice(-2) + '/'  + ("0"+DIA).slice(-2) + '/' + ANO
+      const NOVA_DATA = ANO + '-' + ("0"+MES).slice(-2) + '-'  + ("0"+DIA).slice(-2)
 
       return NOVA_DATA;
       // Utilizo o .slice(-2) para garantir o formato com 2 digitos.

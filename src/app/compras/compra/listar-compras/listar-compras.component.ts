@@ -40,7 +40,9 @@ export class ListarComprasComponent implements OnInit {
     if (this.formSelecaoStatusCompra.value.status_compra) {
       this.compraService.buscarPorStatusCompraId(this.formSelecaoStatusCompra.value.status_compra.id)
       .subscribe((resposta: Compra[]) => {
+        console.log(resposta)
         this.compras = resposta
+        
       })
       
     } else {

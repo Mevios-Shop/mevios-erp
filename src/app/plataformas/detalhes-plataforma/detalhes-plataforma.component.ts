@@ -23,7 +23,9 @@ export class DetalhesPlataformaComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.buscarPlataforma(params['id'])
+      if (params['id']) {
+        this.buscarPlataforma(params['id'])
+      }
     })
   }
 

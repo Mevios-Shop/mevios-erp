@@ -21,15 +21,14 @@ export class DetalhesProdutoComponent implements OnInit {
   })
 
   constructor(private activatedRoute: ActivatedRoute, private produtoService: ProdutoService) { 
-    activatedRoute.url.subscribe((url) => {
-    })
+    
   }
 
   ngOnInit(): void {
-
-    
     this.activatedRoute.params.subscribe(params => {
-      this.buscarProduto(params['id_produto'])
+      if (params['id_produto']) {
+        this.buscarProduto(params['id_produto'])
+      }
     })
   }
 

@@ -1,6 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from 'src/app/autenticacao/utils/security.util';
+import { environment } from 'src/environments/environment';
 import { Produto } from './produto.model';
 
 @Injectable({
@@ -8,12 +10,18 @@ import { Produto } from './produto.model';
 })
 export class ProdutoService {
 
-  private url: string = "http://localhost:3000/produtos"
+  private url: string = environment.api + "produtos"
 
   constructor(private http: HttpClient) { }
 
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(this.url).pipe(
+    return this.http.get<Produto[]>(this.url, {headers: this.composeHeaders()}).pipe(
       retry(10),
       map((resposta: Produto[]) => {
         return resposta
@@ -23,7 +31,7 @@ export class ProdutoService {
   }
 
   buscarPorId(id: number): Observable<Produto> {
-    return this.http.get<Produto>(`${this.url}/${id}`)
+    return this.http.get<Produto>(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       retry(10),
       map((resposta: any) => {
@@ -38,7 +46,7 @@ export class ProdutoService {
     
     if (produto.id !== 0) {
       //console.log("atualizar")
-      return this.http.patch(`${this.url}/${produto.id}`, produto).pipe(
+      return this.http.patch(`${this.url}/${produto.id}`, produto, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -46,7 +54,7 @@ export class ProdutoService {
     }
     else{
       //console.log("inserir")
-      return this.http.post(`${this.url}`, produto).pipe(
+      return this.http.post(`${this.url}`, produto, {headers: this.composeHeaders()}).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -55,7 +63,7 @@ export class ProdutoService {
   }
 
   deletar(id: string): Observable<Produto> {
-    return this.http.delete(`${this.url}/${id}`)
+    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
     .pipe(
       map((resposta: any) => {
         return resposta

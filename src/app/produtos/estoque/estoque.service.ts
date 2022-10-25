@@ -1,7 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { Security } from 'src/app/autenticacao/utils/security.util';
 import { ItemCompra } from 'src/app/compras/itens-compra/item-compra.model';
+import { environment } from 'src/environments/environment';
 import { Estoque } from './estoque.model';
 
 @Injectable({
@@ -9,13 +11,21 @@ import { Estoque } from './estoque.model';
 })
 export class EstoqueService {
 
-  private url_estoque_disponivel: string = "http://localhost:3000/estoque_disponivel"
-  private url: string = "http://localhost:3000/estoque"
+  private url_estoque_disponivel: string = environment.api + "estoque_disponivel"
+  private url: string = environment.api + "estoque"
 
   constructor(private http: HttpClient) { }
 
+  public composeHeaders() {
+    const token = Security.getToken();
+    const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
+    return headers;
+  }
+
   buscarTodosAgrupados(): Observable<any[]> {
-    return this.http.get<any[]>(this.url_estoque_disponivel).pipe(
+    
+    return this.http.get<any[]>(this.url_estoque_disponivel, { headers: this.composeHeaders() })
+    .pipe(
       retry(10),
       map((resposta: any[]) => {
         return resposta
@@ -45,7 +55,19 @@ export class EstoqueService {
   //Observable<Estoque[]>
   lancarItensPorCompraId(itens_compra: ItemCompra[]): Observable<Estoque[]> {
     const LISTA_ESTOQUE: Estoque[] = this.converterItensCompraEmListaEstoque(itens_compra)
-    return this.http.post<Estoque[]>(`${this.url}`, LISTA_ESTOQUE)    
+    return this.http.post<Estoque[]>(`${this.url}`, LISTA_ESTOQUE, {headers: this.composeHeaders()})    
+  }
+
+  verificarDisponibilidadeDoProduto(variacao_produto_id: number, quantidade: number): Observable<any> {
+    const url= `${this.url_estoque_disponivel}/${variacao_produto_id}/${quantidade}`
+    return this.http.get<any>(url, {headers: this.composeHeaders()})
+    .pipe(
+      retry(10),
+      map((resposta: any) => {
+        return resposta
+      }),
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error: HttpErrorResponse) {

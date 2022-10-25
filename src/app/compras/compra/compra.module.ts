@@ -4,8 +4,8 @@ import { ListarComprasComponent } from './listar-compras/listar-compras.componen
 import { DetalhesCompraComponent } from './detalhes-compra/detalhes-compra.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ComprasRoutingModule } from './compras-routing.module';
 import { ItemCompraModule } from '../itens-compra/item-compra.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 
 
@@ -18,9 +18,12 @@ import { ItemCompraModule } from '../itens-compra/item-compra.module';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    ComprasRoutingModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     ItemCompraModule
+  ],
+  exports: [
+    DetalhesCompraComponent
   ]
 })
 export class CompraModule { }

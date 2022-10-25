@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ListarEstoqueComponent } from './listar-estoque/listar-estoque.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EstoqueRoutingModule } from './estoque-routing.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 
 
@@ -16,7 +16,7 @@ import { EstoqueRoutingModule } from './estoque-routing.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    EstoqueRoutingModule
+    AppRoutingModule
   ]
 })
 export class EstoqueModule { }

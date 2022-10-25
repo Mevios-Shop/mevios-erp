@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ListarItensCompraComponent } from "./listar-itens-compra/listar-itens-compra.component";
 import { DetalhesItemCompraComponent } from './detalhes-item-compra/detalhes-item-compra.component';
-import { ItemCompraRoutingModule } from "./item-compra-routing.module";
+import { AppRoutingModule } from "src/app/app-routing.module";
 
 @NgModule({
     declarations: [
@@ -16,7 +16,7 @@ import { ItemCompraRoutingModule } from "./item-compra-routing.module";
       FormsModule,
       HttpClientModule,
       ReactiveFormsModule,
-      ItemCompraRoutingModule
+      AppRoutingModule
     ],
     exports: [
       ListarItensCompraComponent
