@@ -52,6 +52,11 @@ export class AuthService implements CanActivate {
       );
   }
 
+  logout() {
+    Security.clear();
+    this.router.navigate(['/login']);
+  }
+
   refreshToken(): Observable<any> {
     console.log('refreshToken');
     return this.http.post(
