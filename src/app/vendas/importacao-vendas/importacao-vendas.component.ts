@@ -107,6 +107,12 @@ export class ImportacaoVendasComponent implements OnInit {
           usuario: usuario.id
         }
 
+        let statusVenda = linha['Status do pedido']
+
+        if (linha['Status do pedido'] === 'Frete') {
+          statusVenda = 'Enviado'
+        }
+
         const vendaCompleta: ImportarVendaInterface = {
           codigo_pedido: linha['ID do pedido'],
           codigo_rastreamento: linha['Número de rastreamento'],
@@ -114,7 +120,7 @@ export class ImportacaoVendasComponent implements OnInit {
           data: this.formatarData(linha['Hora do pagamento do pedido']),
           itensVenda: [itemVendaDto],
           plataforma: 1,
-          status_venda: linha['Status do pedido'],
+          status_venda: statusVenda,
           transportadora: linha['Opção de envio'],
           usuario: usuario.id,
         }
@@ -271,7 +277,7 @@ export class ImportacaoVendasComponent implements OnInit {
 
   verificarSeArquivoDoTipoXLSX(file: any): boolean {
     const lista: Array<any> = file.name.split('.')
-    if (lista[lista.length - 1] === 'xlsx') {
+    if (lista[lista.length - 1] === 'xlsx' || lista[lista.length - 1] === 'xls') {
       return true
     } else {
       return false
