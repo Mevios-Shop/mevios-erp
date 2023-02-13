@@ -7,19 +7,17 @@ import { PlataformaService } from '../plataforma.service';
 @Component({
   selector: 'app-detalhes-plataforma',
   templateUrl: './detalhes-plataforma.component.html',
-  styleUrls: ['./detalhes-plataforma.component.css']
 })
 export class DetalhesPlataformaComponent implements OnInit {
 
   id: string | undefined
-
   plataforma?: Plataforma
 
   formularioPlataforma: FormGroup = new FormGroup({
     'descricao': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(45)])
   })
 
-  constructor(private activatedRoute: ActivatedRoute , private plataformaService: PlataformaService) { }
+  constructor(private activatedRoute: ActivatedRoute, private plataformaService: PlataformaService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -31,13 +29,12 @@ export class DetalhesPlataformaComponent implements OnInit {
 
   buscarPlataforma(id: string): any {
     this.plataformaService.buscarPorId(Number(id))
-    .subscribe((plataforma: Plataforma) => {
-      this.plataforma = plataforma
-      this.id = String(plataforma.id)
+      .subscribe((plataforma: Plataforma) => {
+        this.plataforma = plataforma
+        this.id = String(plataforma.id)
 
-      this.formularioPlataforma.get('descricao')?.setValue(plataforma.descricao)
-
-    })
+        this.formularioPlataforma.get('descricao')?.setValue(plataforma.descricao)
+      })
   }
 
   salvar(): void {
@@ -48,7 +45,7 @@ export class DetalhesPlataformaComponent implements OnInit {
 
       if (Number(this.id) > 0) {
         idRegistro = Number(this.id)
-        
+
       } else {
         idRegistro = 0
       }
@@ -59,14 +56,10 @@ export class DetalhesPlataformaComponent implements OnInit {
       )
 
       this.plataformaService.salvar(PLATAFORMA)
-      .subscribe((resposta: any) => {
-        this.id = resposta['id']
-        alert("Plataforma salva com sucesso!")
-      })
-
-
-
+        .subscribe((resposta: any) => {
+          this.id = resposta['id']
+          alert("Plataforma salva com sucesso!")
+        })
     }
   }
-
 }

@@ -22,32 +22,29 @@ export class ItemCompraService {
   }
 
   buscarTodos(id: string): Observable<ItemCompra[]> {
-    return this.http.get<ItemCompra[]>(`${this.url}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: ItemCompra[]) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.get<ItemCompra[]>(`${this.url}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: ItemCompra[]) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   buscarPorId(id: number): Observable<ItemCompra> {
-    return this.http.get<ItemCompra>(`${this.url2}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: ItemCompra) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.get<ItemCompra>(`${this.url2}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: ItemCompra) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   salvar(itemCompra: ItemCompra, quantidade: number): Observable<ItemCompra> {
 
-    //console.log('ITEM_COMPRA: ', itemCompra)
-
-    
     const ITEM_COMPRA = {
       "quantidade": quantidade,
       "compra": itemCompra.compra,
@@ -57,16 +54,15 @@ export class ItemCompraService {
       "link_anuncio": itemCompra.link_anuncio,
       "id": itemCompra.id
     }
-    
+
     if (itemCompra.id !== 0) {
-      //console.log("atualizar")
-      return this.http.patch(`${this.url2}/${itemCompra.id}`, itemCompra, {headers: this.composeHeaders()}).pipe(
+      return this.http.patch(`${this.url2}/${itemCompra.id}`, itemCompra, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
       )
     }
-    else{
+    else {
 
       let urlInsercao = ''
 
@@ -75,8 +71,8 @@ export class ItemCompraService {
       } else {
         urlInsercao = this.url
       }
-      //console.log("inserir")
-      return this.http.post(`${urlInsercao}`, ITEM_COMPRA, {headers: this.composeHeaders()}).pipe(
+
+      return this.http.post(`${urlInsercao}`, ITEM_COMPRA, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -85,13 +81,13 @@ export class ItemCompraService {
   }
 
   deletar(id: string): Observable<ItemCompra> {
-    return this.http.delete(`${this.url2}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      map((resposta: any) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.delete(`${this.url2}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        map((resposta: any) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   private handleError(error: HttpErrorResponse) {

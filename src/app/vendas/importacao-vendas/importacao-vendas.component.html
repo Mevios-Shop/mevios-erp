@@ -3,62 +3,48 @@
         <div class="col-12">
             <form class="form-group" role="form" [formGroup]="form">
                 <div class="card card-primary">
-
                     <div class="card-header">
                         <h3 class="card-title">Status Compra</h3>
-
                         <div class="card-tools">
-
                         </div>
                     </div>
-
                     <div class="card-body">
 
                         <label for="inputName">Arquivo</label>
-
                         <div class="form-group">
-
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile" formControlName="file"
                                     (change)="carregarPlanilha($event)">
-                                <label class="custom-file-label" id="customFileLabel" for="customFile">{{nomeDoArquivo}}</label>
+                                <label class="custom-file-label" id="customFileLabel"
+                                    for="customFile">{{nomeDoArquivo}}</label>
                                 <p *ngIf="colunasObrigatoriasNaoPreenchidas.length">
-                                    <span class="text-danger">Coluna(s) obrigatória(s) com valor vazio:</span> {{colunasObrigatoriasNaoPreenchidas}}
+                                    <span class="text-danger">Coluna(s) obrigatória(s) com valor vazio:</span>
+                                    {{colunasObrigatoriasNaoPreenchidas}}
                                 </p>
                             </div>
                         </div>
-
-
-
                     </div>
-                    <!-- /.card-body -->
                     <div class="card-footer">
                         <div class="col-12">
                             <button type="submit" class="btn btn-secondary"
                                 routerLink="/compras/status-compra">Cancelar</button>
-                            <button type="submit" class="btn btn-success float-right" (click)="importar()" [disabled]="vendas.length == 0">Importar</button>
+                            <button type="submit" class="btn btn-success float-right" (click)="importar()"
+                                [disabled]="vendas.length == 0">Importar</button>
                         </div>
-                    </div><!-- /.card-footer -->
+                    </div>
                 </div>
-                <!-- /.card -->
             </form>
         </div>
     </div>
     <div class="row" *ngIf="linhasDoArquivoExcel.length > 0">
         <div class="col-12">
-
             <div class="card card-secondary">
-
                 <div class="card-header">
                     <h3 class="card-title">Visualização do Arquivo</h3>
-
                     <div class="card-tools">
-
                     </div>
                 </div>
-
                 <div class="card-body overflow-auto" style="max-height: 500px; min-height: 100;">
-
                     <div class="">
                         <table class="table">
                             <thead>
@@ -73,15 +59,10 @@
                             </tbody>
                         </table>
                     </div>
-
-
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer">
-
-                </div><!-- /.card-footer -->
+                </div>
             </div>
-            <!-- /.card -->
         </div>
     </div>
 </div>

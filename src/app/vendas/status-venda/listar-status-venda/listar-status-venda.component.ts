@@ -5,12 +5,10 @@ import { StatusVendaService } from '../status-venda.service';
 @Component({
   selector: 'app-listar-status-venda',
   templateUrl: './listar-status-venda.component.html',
-  styleUrls: ['./listar-status-venda.component.css']
 })
 export class ListarStatusVendaComponent implements OnInit {
 
   listaStatusVenda: StatusVenda[] = []
-
   statusVendaSelecionado: string = ""
 
   constructor(private statusVendaService: StatusVendaService) { }
@@ -29,10 +27,9 @@ export class ListarStatusVendaComponent implements OnInit {
     const id_venda = this.statusVendaSelecionado
     this.statusVendaSelecionado = ""
     this.statusVendaService.deletar(String(id_venda))
-    .subscribe((resposta: any) => {
-      this.listar()
-      alert('Status Compra removido com sucesso!')
-    })
+      .subscribe((resposta: any) => {
+        this.listar()
+        alert('Status Compra removido com sucesso!')
+      })
   }
-
 }

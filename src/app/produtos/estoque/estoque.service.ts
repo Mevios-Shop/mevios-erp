@@ -23,15 +23,15 @@ export class EstoqueService {
   }
 
   buscarTodosAgrupados(): Observable<any[]> {
-    
+
     return this.http.get<any[]>(this.url_estoque_disponivel, { headers: this.composeHeaders() })
-    .pipe(
-      retry(10),
-      map((resposta: any[]) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+      .pipe(
+        retry(10),
+        map((resposta: any[]) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   converterItensCompraEmListaEstoque(itens_compra: ItemCompra[]): Estoque[] {
@@ -43,31 +43,28 @@ export class EstoqueService {
         item, item.variacao_produto, item.compra.data
       )
 
-        listaEstoque.push(estoque)
-
-        
+      listaEstoque.push(estoque)
     });
 
     return listaEstoque
 
   }
 
-  //Observable<Estoque[]>
   lancarItensPorCompraId(itens_compra: ItemCompra[]): Observable<Estoque[]> {
     const LISTA_ESTOQUE: Estoque[] = this.converterItensCompraEmListaEstoque(itens_compra)
-    return this.http.post<Estoque[]>(`${this.url}`, LISTA_ESTOQUE, {headers: this.composeHeaders()})    
+    return this.http.post<Estoque[]>(`${this.url}`, LISTA_ESTOQUE, { headers: this.composeHeaders() })
   }
 
   verificarDisponibilidadeDoProduto(variacao_produto_id: number, quantidade: number): Observable<any> {
-    const url= `${this.url_estoque_disponivel}/${variacao_produto_id}/${quantidade}`
-    return this.http.get<any>(url, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: any) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    const url = `${this.url_estoque_disponivel}/${variacao_produto_id}/${quantidade}`
+    return this.http.get<any>(url, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: any) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   private handleError(error: HttpErrorResponse) {

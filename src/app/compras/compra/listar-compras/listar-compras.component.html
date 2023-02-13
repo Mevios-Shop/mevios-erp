@@ -7,41 +7,33 @@
                     <div class="card-tools">
                         <div class="row justify-content-between">
                             <div class="col-12">
-                                    <form class="form-horizontal" role="form" [formGroup]="formSelecaoStatusCompra">
-                                        <div class="form-group row">
-                                            <div class="col-auto">
-                                                <label class="col col-form-label" for="inputName">Filtrar:</label>
-                                            </div>
-                                            <div class="col-auto">
-                                                <select (change)="listar()"
-                                                formControlName="status_compra"
+                                <form class="form-horizontal" role="form" [formGroup]="formSelecaoStatusCompra">
+                                    <div class="form-group row">
+                                        <div class="col-auto">
+                                            <label class="col col-form-label" for="inputName">Filtrar:</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select (change)="listar()" formControlName="status_compra"
                                                 class="form-control select2 select2-hidden-accessible"
                                                 style="width: 100%;" [compareWith]="compareSelect">
                                                 <option>Todos</option>
-                                                <!--(click)="teste(produto.id)"-->
                                                 <option *ngFor="let statusCompra of listaStatusCompra$ | async"
                                                     [ngValue]="statusCompra">{{ statusCompra.descricao }}
                                                 </option>
                                             </select>
-                                            </div>
-                                            <div class="col-auto">
-                                                <button type="button" class="btn btn-primary" routerLink="/compras/detalhes-compra">
-                                                    Adicionar Compra
-                                                </button>
-                                            </div>
-                                            
-                                            
                                         </div>
-
-
-                                    </form>
-                                
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-primary"
+                                                routerLink="/compras/detalhes-compra">
+                                                Adicionar Compra
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
                 <div class="card-body">
                     <table class="table table-hover text-nowrap">
                         <thead>
@@ -90,7 +82,6 @@
                         </tbody>
                     </table>
                 </div>
-
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 float-right">
                         <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>

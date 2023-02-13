@@ -7,8 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItemCompraModule } from '../itens-compra/item-compra.module';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
-
-
 @NgModule({
   declarations: [
     ListarComprasComponent,

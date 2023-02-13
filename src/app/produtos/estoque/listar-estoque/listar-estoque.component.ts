@@ -4,12 +4,10 @@ import { EstoqueService } from '../estoque.service';
 @Component({
   selector: 'app-listar-estoque',
   templateUrl: './listar-estoque.component.html',
-  styleUrls: ['./listar-estoque.component.css']
 })
 export class ListarEstoqueComponent implements OnInit {
 
   produtosDisponiveis: any[] = []
-
   produtoSelecionado: string = ""
 
   constructor(private estoqueService: EstoqueService) { }
@@ -23,5 +21,4 @@ export class ListarEstoqueComponent implements OnInit {
       this.produtosDisponiveis = resposta
     })
   }
-
 }

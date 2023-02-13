@@ -21,7 +21,7 @@ export class StatusItemCompraService {
   }
 
   buscarTodos(): Observable<StatusItemCompra[]> {
-    return this.http.get<StatusItemCompra[]>(this.url, {headers: this.composeHeaders()}).pipe(
+    return this.http.get<StatusItemCompra[]>(this.url, { headers: this.composeHeaders() }).pipe(
       retry(10),
       map((resposta: StatusItemCompra[]) => {
         return resposta
@@ -31,31 +31,27 @@ export class StatusItemCompraService {
   }
 
   buscarPorId(id: number): Observable<StatusItemCompra> {
-    return this.http.get<StatusItemCompra>(`${this.url}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: StatusItemCompra) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.get<StatusItemCompra>(`${this.url}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: StatusItemCompra) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
-  
-
   salvar(statusItemCompra: StatusItemCompra): Observable<any> {
-    
+
     if (statusItemCompra.id !== 0) {
-      //console.log("atualizar")
-      return this.http.patch(`${this.url}/${statusItemCompra.id}`, statusItemCompra, {headers: this.composeHeaders()}).pipe(
+      return this.http.patch(`${this.url}/${statusItemCompra.id}`, statusItemCompra, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
       )
     }
-    else{
-      //console.log("inserir")
-      return this.http.post(`${this.url}`, statusItemCompra, {headers: this.composeHeaders()}).pipe(
+    else {
+      return this.http.post(`${this.url}`, statusItemCompra, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -64,13 +60,13 @@ export class StatusItemCompraService {
   }
 
   deletar(id: string): Observable<StatusItemCompra> {
-    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      map((resposta: any) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.delete(`${this.url}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        map((resposta: any) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   private handleError(error: HttpErrorResponse) {

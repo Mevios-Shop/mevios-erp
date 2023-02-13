@@ -6,8 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { DetalhesStatusItemCompraComponent } from './detalhes-status-item-compra/detalhes-status-item-compra.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
-
-
 @NgModule({
   declarations: [
     ListarStatusItemCompraComponent,

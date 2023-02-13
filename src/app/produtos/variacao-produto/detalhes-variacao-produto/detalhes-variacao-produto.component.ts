@@ -9,7 +9,6 @@ import { VariacaoProdutoService } from '../variacao-produto.service';
 @Component({
   selector: 'app-detalhes-variacao-produto',
   templateUrl: './detalhes-variacao-produto.component.html',
-  styleUrls: ['./detalhes-variacao-produto.component.css']
 })
 export class DetalhesVariacaoProdutoComponent implements OnInit {
 
@@ -22,14 +21,12 @@ export class DetalhesVariacaoProdutoComponent implements OnInit {
   variacaoProduto?: VariacaoProduto
 
   id_produto: number = 0
-
   produto?: Produto
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
     private variacaoProdutoService: VariacaoProdutoService,
     private produtoService: ProdutoService) {
-    //console.log(this.activatedRoute.snapshot)
   }
 
   ngOnInit(): void {
@@ -39,22 +36,20 @@ export class DetalhesVariacaoProdutoComponent implements OnInit {
       if (params['id_variacao']) {
         this.buscarVariacao(params['id_variacao'])
       }
-
     });
   }
 
   buscarProduto(id: string): any {
     this.produtoService.buscarPorId(Number(id))
-    .subscribe((produto: Produto) => {
-      this.produto = produto
-    })
+      .subscribe((produto: Produto) => {
+        this.produto = produto
+      })
   }
 
   buscarVariacao(id: string): any {
     this.variacaoProdutoService.buscarPorId(Number(id))
       .subscribe((variacaoProduto: VariacaoProduto) => {
         this.variacaoProduto = variacaoProduto
-
         this.id = String(this.variacaoProduto.id)
 
         this.formularioVariacaoProduto.get('descricao')?.setValue(this.variacaoProduto.descricao)
@@ -66,7 +61,6 @@ export class DetalhesVariacaoProdutoComponent implements OnInit {
   salvarVariacaoProduto(): void {
 
     if (this.formularioVariacaoProduto.status !== 'INVALID') {
-
       let idRegistro: number
 
       if (Number(this.id) > 0) {
@@ -93,12 +87,8 @@ export class DetalhesVariacaoProdutoComponent implements OnInit {
             }
           })
       }
-
-
     } else {
-
       this.formularioVariacaoProduto.get('descricao')?.markAsTouched()
     }
   }
-
 }
