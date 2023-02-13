@@ -38,6 +38,16 @@ export class StatusVendaService {
     )
   }
 
+  deletar(id: string): Observable<StatusCompra> {
+    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
+    .pipe(
+      map((resposta: any) => {
+        return resposta
+      }),
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // Ocorreu um erro do lado do cliente ou da rede. Trate-o em conformidade.
