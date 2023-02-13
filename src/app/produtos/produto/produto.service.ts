@@ -21,7 +21,7 @@ export class ProdutoService {
   }
 
   buscarTodos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(this.url, {headers: this.composeHeaders()}).pipe(
+    return this.http.get<Produto[]>(this.url, { headers: this.composeHeaders() }).pipe(
       retry(10),
       map((resposta: Produto[]) => {
         return resposta
@@ -31,30 +31,27 @@ export class ProdutoService {
   }
 
   buscarPorId(id: number): Observable<Produto> {
-    return this.http.get<Produto>(`${this.url}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: any) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
-    
+    return this.http.get<Produto>(`${this.url}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: any) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   salvar(produto: Produto): Observable<any> {
-    
+
     if (produto.id !== 0) {
-      //console.log("atualizar")
-      return this.http.patch(`${this.url}/${produto.id}`, produto, {headers: this.composeHeaders()}).pipe(
+      return this.http.patch(`${this.url}/${produto.id}`, produto, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
       )
     }
-    else{
-      //console.log("inserir")
-      return this.http.post(`${this.url}`, produto, {headers: this.composeHeaders()}).pipe(
+    else {
+      return this.http.post(`${this.url}`, produto, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -63,13 +60,13 @@ export class ProdutoService {
   }
 
   deletar(id: string): Observable<Produto> {
-    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      map((resposta: any) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.delete(`${this.url}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        map((resposta: any) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   private handleError(error: HttpErrorResponse) {

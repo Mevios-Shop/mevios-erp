@@ -16,21 +16,15 @@ import { ItemCompraService } from '../item-compra.service';
 @Component({
   selector: 'app-detalhes-item-compra',
   templateUrl: './detalhes-item-compra.component.html',
-  styleUrls: ['./detalhes-item-compra.component.css']
 })
 export class DetalhesItemCompraComponent implements OnInit {
 
   id: string | undefined
-
   itemCompra?: ItemCompra
-
   idCompra?: number
-
   compra?: Compra
-
   variacoes_produto$?: Observable<VariacaoProduto[]>
   lista_status_item_compra$?: Observable<StatusItemCompra[]>
-
   produtos$?: Observable<Produto[]>
 
 
@@ -52,7 +46,6 @@ export class DetalhesItemCompraComponent implements OnInit {
     private compraService: CompraService,
     private statusItemCompraService: StatusItemCompraService
   ) {
-    //activatedRoute.url.subscribe((url) => {});
   }
 
   ngOnInit(): void {
@@ -67,8 +60,6 @@ export class DetalhesItemCompraComponent implements OnInit {
       if (this.itemCompra == undefined) {
         this.formularioItemCompra.get('produto')?.setValue('Selecione um produto', { onlySelf: true })
         this.formularioItemCompra.get('status_item_compra')?.setValue('Selecione um status', { onlySelf: true })
-
-        //this.formularioItemCompra.get('variacao_produto')?.setValue(this.itemCompra.variacao_produto)
       }
     })
 
@@ -96,8 +87,6 @@ export class DetalhesItemCompraComponent implements OnInit {
         this.variacoes_produto$ = this.variacaoProdutoService.buscarTodas(Number(itemCompra.variacao_produto.produto.id))
 
         this.formularioItemCompra.get('variacao_produto')?.setValue(this.itemCompra.variacao_produto)
-
-
       })
   }
 
@@ -110,7 +99,6 @@ export class DetalhesItemCompraComponent implements OnInit {
   }
 
   buscarCompra(id: number): void {
-
     this.compraService.buscarPorId(id)
       .subscribe((compra: Compra) => {
         this.compra = compra
@@ -125,11 +113,9 @@ export class DetalhesItemCompraComponent implements OnInit {
 
       if (Number(this.id) > 0) {
         idRegistro = Number(this.id)
-
       } else {
         idRegistro = 0
       }
-
 
       if (this.itemCompra) {
         const ITEM_COMPRA = new ItemCompra(
@@ -146,13 +132,11 @@ export class DetalhesItemCompraComponent implements OnInit {
             this.id = resposta['id']
             this.ngOnInit()
             alert("Item da compra salva com sucesso!")
-            this.router.navigate(['/compras/detalhes-compra/'+this.idCompra])
+            this.router.navigate(['/compras/detalhes-compra/' + this.idCompra])
           })
 
       } else {
-
         if (this.activatedRoute.snapshot.params['id_compra']) {
-
           this.compraService.buscarPorId(Number(this.activatedRoute.snapshot.params['id_compra']))
             .subscribe((compra: Compra) => {
 
@@ -170,25 +154,14 @@ export class DetalhesItemCompraComponent implements OnInit {
               this.itemCompraService.salvar(ITEM_COMPRA, this.formularioItemCompra.value.quantidade)
                 .subscribe((resposta: any) => {
                   this.id = resposta['id']
-    
+
                   alert("Item da compra salva com sucesso!")
 
-                  this.router.navigate(['/compras/detalhes-compra/'+compra.id])
+                  this.router.navigate(['/compras/detalhes-compra/' + compra.id])
                 })
 
             })
-
         }
-
-
-
-        if (this.compra) {
-
-
-
-        }
-
-
       }
 
     } else {

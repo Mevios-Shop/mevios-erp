@@ -12,16 +12,12 @@ import { Compra } from './compra.model';
 })
 export class CompraService {
 
-  
-
   private url: string = environment.api + 'compras';
   private url_compras_por_status: string = environment.api + "compra-por-status"
-
   private plataforma?: Plataforma
 
   constructor(private http: HttpClient, private plataformaService: PlataformaService) { }
 
-  
   public composeHeaders() {
     const token = Security.getToken();
     const headers = new HttpHeaders().set('Authorization', `bearer ${token}`);
@@ -29,41 +25,40 @@ export class CompraService {
   }
 
   buscarTodos(): Observable<Compra[]> {
-    return this.http.get<Compra[]>(this.url, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: Compra[]) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.get<Compra[]>(this.url, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: Compra[]) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   buscarPorStatusCompraId(id: number): Observable<Compra[]> {
-    return this.http.get<Compra>(`${this.url_compras_por_status}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: any) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.get<Compra>(`${this.url_compras_por_status}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: any) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   buscarPorId(id: number): Observable<Compra> {
-    return this.http.get<Compra>(`${this.url}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      retry(10),
-      map((resposta: Compra) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.get<Compra>(`${this.url}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        retry(10),
+        map((resposta: Compra) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   salvar(compra: Compra): Observable<any> {
 
-    
     const COMPRA = {
       "id": compra.id,
       "data": compra.data,
@@ -76,19 +71,15 @@ export class CompraService {
       "status_compra": compra.status_compra.descricao
     }
 
-    console.log({compra: COMPRA})
-    
     if (compra.id !== 0) {
-      //console.log("atualizar")
-      return this.http.patch(`${this.url}/${compra.id}`, compra, {headers: this.composeHeaders()}).pipe(
+      return this.http.patch(`${this.url}/${compra.id}`, compra, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
       )
     }
-    else{
-      //console.log("inserir")
-      return this.http.post(`${this.url}`, compra, {headers: this.composeHeaders()}).pipe(
+    else {
+      return this.http.post(`${this.url}`, compra, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })
@@ -97,13 +88,13 @@ export class CompraService {
   }
 
   deletar(id: string): Observable<Compra> {
-    return this.http.delete(`${this.url}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      map((resposta: any) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.delete(`${this.url}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        map((resposta: any) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   private handleError(error: HttpErrorResponse) {

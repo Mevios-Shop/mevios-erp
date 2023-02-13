@@ -18,31 +18,20 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-importacao-vendas',
   templateUrl: './importacao-vendas.component.html',
-  styleUrls: ['./importacao-vendas.component.css']
 })
 export class ImportacaoVendasComponent implements OnInit {
 
   colunasConhecidas: string[] = []
   colunasConhecidasObrigatorias: string[] = []
-
   origemDoArquivo: string = ''
-
   nomeDoArquivo = 'Selecione o arquivo';
   linhasDoArquivoExcel: any[] = [];
   columnsTitles: Array<String> = []
   columnsValues: Array<any> = []
-
   plataforma?: Plataforma
-
   vendas: ImportarVendaInterface[] = []
-
   listaStatusVenda: StatusVenda[] = []
-
   colunasObrigatoriasNaoPreenchidas: string[] = []
-
-
-  //dadosDasVendasCompleto: DadosVendaDto[] = []
-
 
   form = new FormGroup({
     file: new FormControl('', [Validators.required]),
@@ -50,12 +39,8 @@ export class ImportacaoVendasComponent implements OnInit {
   });
 
   constructor(
-    private readonly plataformaService: PlataformaService,
     private readonly vendaService: VendaService,
-    private readonly statusVendaService: StatusVendaService,
-    private readonly variacaoProdutoService: VariacaoProdutoService,
-    private readonly estoqueService: EstoqueService
-  ) { }
+    private readonly statusVendaService: StatusVendaService) { }
 
   ngOnInit(): void {
     this.statusVendaService.buscarTodos()
@@ -80,7 +65,6 @@ export class ImportacaoVendasComponent implements OnInit {
             }
           }
         })
-
     } else {
       alert('Os dados das vendas não foram carregados corretamente')
     }
@@ -126,7 +110,6 @@ export class ImportacaoVendasComponent implements OnInit {
         }
 
         this.vendas.push(vendaCompleta)
-
       }
     })
   }
@@ -162,7 +145,6 @@ export class ImportacaoVendasComponent implements OnInit {
 
           this.linhasDoArquivoExcel.push(objeto)
         }
-        
       })
 
       const dadosObrigatoriosPreenchidos = this.verificarSeAsColunasObrigatoriasEstaoPreenchidas()
@@ -171,9 +153,6 @@ export class ImportacaoVendasComponent implements OnInit {
         this.converterDadosEmVendas()
       }
     }
-
-
-
   }
 
 
@@ -201,14 +180,9 @@ export class ImportacaoVendasComponent implements OnInit {
 
       if (sheets.length) {
         this.extrairDadosNecessariosDaPlanilha(utils.sheet_to_json(wb.Sheets[sheets[0]]))
-
-
       }
     }
     reader.readAsArrayBuffer(arquivoCarregado);
-
-
-
   }
 
   resetarFormulario() {

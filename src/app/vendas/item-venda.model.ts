@@ -15,5 +15,4 @@ export class ItemVenda {
         this.estoque = estoque
         this.venda = venda
     }
-    
 }

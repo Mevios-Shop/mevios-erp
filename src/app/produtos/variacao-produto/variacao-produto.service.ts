@@ -23,7 +23,7 @@ export class VariacaoProdutoService {
 
   buscarTodas(id_produto: number): Observable<VariacaoProduto[]> {
     console.log(`${this.url}/${id_produto}`)
-    return this.http.get<VariacaoProduto[]>(`${this.url}/${id_produto}`, {headers: this.composeHeaders()}).pipe(
+    return this.http.get<VariacaoProduto[]>(`${this.url}/${id_produto}`, { headers: this.composeHeaders() }).pipe(
       retry(10),
       map((resposta: any) => {
         return resposta
@@ -33,34 +33,31 @@ export class VariacaoProdutoService {
   }
 
   buscarPorId(id: number): Observable<VariacaoProduto> {
-    return this.http.get<VariacaoProduto>(`${this.url2}/${id}`, {headers: this.composeHeaders()})
-    .pipe(
-      map((resposta: VariacaoProduto) => {
-        return resposta
-      }),
-      catchError(this.handleError)
-    )
+    return this.http.get<VariacaoProduto>(`${this.url2}/${id}`, { headers: this.composeHeaders() })
+      .pipe(
+        map((resposta: VariacaoProduto) => {
+          return resposta
+        }),
+        catchError(this.handleError)
+      )
   }
 
   salvar(variacaoProduto: VariacaoProduto): Observable<any> {
-  
+
     if (variacaoProduto.id !== 0) {
-      //console.log("atualizar")
-      return this.http.patch(`${this.url2}/${variacaoProduto.id}`, variacaoProduto, {headers: this.composeHeaders()})
-      .pipe(
-        map((resposta: any) => {
-          return resposta
-        })
-      )
-      .pipe(catchError(err => {
-        this.handleError(err)
-        return 'erro ao cadastrar produto'
-        
-      }))
+      return this.http.patch(`${this.url2}/${variacaoProduto.id}`, variacaoProduto, { headers: this.composeHeaders() })
+        .pipe(
+          map((resposta: any) => {
+            return resposta
+          })
+        )
+        .pipe(catchError(err => {
+          this.handleError(err)
+          return 'erro ao cadastrar produto'
+        }))
     }
-    else{
-      //console.log("inserir")
-      return this.http.post(`${this.url2}`, variacaoProduto, {headers: this.composeHeaders()}).pipe(
+    else {
+      return this.http.post(`${this.url2}`, variacaoProduto, { headers: this.composeHeaders() }).pipe(
         map((resposta: any) => {
           return resposta
         })

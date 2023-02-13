@@ -22,8 +22,5 @@ export class Compra {
         this.valor_frete = valor_frete
         this.desconto = desconto
         this.codigo_rastreamento = codigo_rastreamento
-        
-        
-        
     }
 }

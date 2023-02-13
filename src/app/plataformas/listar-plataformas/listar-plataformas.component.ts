@@ -5,12 +5,10 @@ import { PlataformaService } from '../plataforma.service';
 @Component({
   selector: 'app-listar-plataformas',
   templateUrl: './listar-plataformas.component.html',
-  styleUrls: ['./listar-plataformas.component.css']
 })
 export class ListarPlataformasComponent implements OnInit {
 
   plataformas: Plataforma[] = []
-
   plataformaSelecionada: string = ""
 
   constructor(private plataformaService: PlataformaService) { }
@@ -29,10 +27,10 @@ export class ListarPlataformasComponent implements OnInit {
     const ID = this.plataformaSelecionada
     this.plataformaSelecionada = ""
     this.plataformaService.deletar(String(id))
-    .subscribe((resposta: any) => {
-      this.listar()
-      alert('Plataforma removida com sucesso!')
-    })
+      .subscribe((resposta: any) => {
+        this.listar()
+        alert('Plataforma removida com sucesso!')
+      })
   }
 
 }

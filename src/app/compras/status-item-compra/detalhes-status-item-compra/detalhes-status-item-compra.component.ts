@@ -7,19 +7,17 @@ import { StatusItemCompraService } from '../status-item-compra.service';
 @Component({
   selector: 'app-detalhes-status-item-compra',
   templateUrl: './detalhes-status-item-compra.component.html',
-  styleUrls: ['./detalhes-status-item-compra.component.css']
 })
 export class DetalhesStatusItemCompraComponent implements OnInit {
 
   id: string | undefined
-
   statusItemCompra?: StatusItemCompra
 
   formularioStatusItemCompra: FormGroup = new FormGroup({
     'descricao': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)])
   })
 
-  constructor(private activatedRoute: ActivatedRoute , private statusItemCompraService: StatusItemCompraService) { }
+  constructor(private activatedRoute: ActivatedRoute, private statusItemCompraService: StatusItemCompraService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -31,13 +29,12 @@ export class DetalhesStatusItemCompraComponent implements OnInit {
 
   buscarStatusItemCompra(id: string): any {
     this.statusItemCompraService.buscarPorId(Number(id))
-    .subscribe((statusItemCompra: StatusItemCompra) => {
-      this.statusItemCompra = statusItemCompra
-      this.id = String(statusItemCompra.id)
+      .subscribe((statusItemCompra: StatusItemCompra) => {
+        this.statusItemCompra = statusItemCompra
+        this.id = String(statusItemCompra.id)
 
-      this.formularioStatusItemCompra.get('descricao')?.setValue(statusItemCompra.descricao)
-
-    })
+        this.formularioStatusItemCompra.get('descricao')?.setValue(statusItemCompra.descricao)
+      })
   }
 
   salvar(): void {
@@ -48,7 +45,7 @@ export class DetalhesStatusItemCompraComponent implements OnInit {
 
       if (Number(this.id) > 0) {
         idRegistro = Number(this.id)
-        
+
       } else {
         idRegistro = 0
       }
@@ -59,13 +56,10 @@ export class DetalhesStatusItemCompraComponent implements OnInit {
       )
 
       this.statusItemCompraService.salvar(STATUS_ITEM_COMPRA)
-      .subscribe((resposta: any) => {
-        this.id = resposta['id']
-        alert("Status Item Compra salvo com sucesso!")
-      })
-
-
-
+        .subscribe((resposta: any) => {
+          this.id = resposta['id']
+          alert("Status Item Compra salvo com sucesso!")
+        })
     }
   }
 

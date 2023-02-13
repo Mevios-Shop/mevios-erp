@@ -12,16 +12,12 @@ import { CompraService } from '../compra.service';
 @Component({
   selector: 'app-detalhes-compra',
   templateUrl: './detalhes-compra.component.html',
-  styleUrls: ['./detalhes-compra.component.css']
 })
 export class DetalhesCompraComponent implements OnInit {
 
   id: string | undefined
-
   compra?: Compra
-
   plataformas?: Observable<Plataforma[]>
-
   listaStatusCompra?: Observable<StatusCompra[]>
 
 
@@ -42,8 +38,8 @@ export class DetalhesCompraComponent implements OnInit {
     private compraService: CompraService,
     private plataformaService: PlataformaService,
     private statusCompraService: StatusCompraService
-  ) { 
-    //console.log(this.activatedRoute.snapshot)
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -58,7 +54,6 @@ export class DetalhesCompraComponent implements OnInit {
         this.formularioCompra.get('plataforma')?.setValue('Selecione uma plataforma', { onlySelf: true })
         this.formularioCompra.get('status_compra')?.setValue('Selecione o status', { onlySelf: true })
       }
-
     })
 
     this.plataformas = this.plataformaService.buscarTodos2()
@@ -88,10 +83,8 @@ export class DetalhesCompraComponent implements OnInit {
         }
 
         this.formularioCompra.get('desconto')?.setValue(compra.desconto)
-        //this.formularioCompra.get('plataforma')?
         this.formularioCompra.get('status_compra')?.setValue(this.compra.status_compra)
         this.formularioCompra.get('valor_frete')?.setValue(compra.valor_frete)
-
         this.formularioCompra.get('plataforma')?.setValue(this.compra.plataforma)
 
       })
@@ -100,35 +93,32 @@ export class DetalhesCompraComponent implements OnInit {
   formataStringDataBd(data: string) {
 
     if (data.length == 10) {
-      const DIA  = data.split("/")[0];
-      var MES  = data.split("/")[1];
-      var ANO  = data.split("/")[2];
+      const DIA = data.split("/")[0];
+      var MES = data.split("/")[1];
+      var ANO = data.split("/")[2];
 
-    
-      const NOVA_DATA = ANO + '-' + ("0"+MES).slice(-2) + '-'  + ("0"+DIA).slice(-2)
+      const NOVA_DATA = ANO + '-' + ("0" + MES).slice(-2) + '-' + ("0" + DIA).slice(-2)
 
       return NOVA_DATA;
       // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
     }
-
     return data
-    
   }
 
   formataStringDataBr(data: string) {
 
-    const DIA  = data.split("/")[0];
-    var MES  = data.split("/")[1];
-    var ANO  = data.split("/")[2];
-  
-    return ANO + '/'  + ("0"+MES).slice(-2) + '/' + ("0"+DIA).slice(-2);
+    const DIA = data.split("/")[0];
+    var MES = data.split("/")[1];
+    var ANO = data.split("/")[2];
+
+    return ANO + '/' + ("0" + MES).slice(-2) + '/' + ("0" + DIA).slice(-2);
     // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
   }
 
   salvar(): void {
 
     if (this.formularioCompra.status !== 'INVALID') {
-      
+
       let idRegistro: number
 
       if (Number(this.id) > 0) {
@@ -157,14 +147,14 @@ export class DetalhesCompraComponent implements OnInit {
         this.formularioCompra.value.valor_frete,
         this.formularioCompra.value.desconto,
         this.formularioCompra.value.codigo_rastreamento,
-      )   
-      
+      )
+
       this.compraService.salvar(COMPRA)
         .subscribe((resposta: any) => {
           this.id = resposta['id']
-          
+
           alert("Compra salva com sucesso!")
-          this.router.navigate(['/compras/detalhes-compra/'+this.id])
+          this.router.navigate(['/compras/detalhes-compra/' + this.id])
         })
 
     } else {

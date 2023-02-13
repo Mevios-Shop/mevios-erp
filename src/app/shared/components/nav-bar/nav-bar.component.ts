@@ -6,12 +6,10 @@ import { Usuario } from 'src/app/usuario/usuario.model';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
 
   UsuarioLogado: Usuario | undefined
-
   faBox = faBox;
   faBox2 = faBoxes;
   faWarehouse = faWarehouse;
@@ -21,5 +19,4 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.UsuarioLogado = Security.getUser()
   }
-
 }
