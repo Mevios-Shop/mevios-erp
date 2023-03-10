@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <form class="form-group" role="form" [formGroup]="formularioStatusCompra" (ngSubmit)="salvar()">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Status Compra</h3>
+            <div class="card-tools">
+            </div>
+          </div>
+          <div class="card-body">
+            <label for="inputName">Descrição</label>
+            <input type="text" placeholder="Digite o nome o status compra" class="form-control"
+              formControlName="descricao">
+          </div>
+          <div class="card-footer">
+            <div class="col-12">
+              <button type="submit" class="btn btn-secondary" routerLink="/compras/status-compra">Cancelar</button>
+              <button type="submit" class="btn btn-success float-right">Salvar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

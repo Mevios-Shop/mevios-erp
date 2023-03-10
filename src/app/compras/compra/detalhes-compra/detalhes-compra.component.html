@@ -1,0 +1,116 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <form class="form-group" role="form" [formGroup]="formularioCompra" (ngSubmit)="salvar()">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Compra</h3>
+                        <div class="card-tools">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <div class="form-group col-2">
+                                <label for="inputName">Data da Compra</label>
+                                <div class="input-group date" id="dataCompra" data-target-input="nearest">
+                                    <input type="text" placeholder="Digite a data da compra"
+                                        class="form-control datetimepicker-input" data-target="#dataCompra"
+                                        formControlName="data" />
+                                    <div class="input-group-append" data-target="#dataCompra"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="
+                                  !formularioCompra.get('data')?.valid &&
+                                  formularioCompra.get('data')?.touched
+                                ">Data da compra inválida!</small>
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="inputName">Codigo Pedido</label>
+                                <input type="text" placeholder="Digite o codigo do pedido" class="form-control"
+                                    formControlName="codigo_pedido">
+                                <small class="form-text text-danger" *ngIf="
+                                  !formularioCompra.get('codigo_pedido')?.valid &&
+                                  formularioCompra.get('codigo_pedido')?.touched
+                                ">Código do pedido inválido!</small>
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="inputName">Codigo de Rastreamento</label>
+                                <input type="text" placeholder="Digite o codigo de rastreamento" class="form-control"
+                                    formControlName="codigo_rastreamento">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="inputName">Data de Recebimento</label>
+                                <div class="input-group date" id="dataRecebimento" data-target-input="nearest">
+                                    <input type="text" placeholder="Digite a data de recebimento"
+                                        class="form-control datetimepicker-input" data-target="#dataRecebimento"
+                                        formControlName="data_recebimento" />
+                                    <div class="input-group-append" data-target="#dataRecebimento"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                    <small class="form-text text-danger" *ngIf="
+                                  !formularioCompra.get('data_recebimento')?.valid &&
+                                  formularioCompra.get('data_recebimento')?.touched
+                                ">Data inválida!</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="inputName">Valor do Frete</label>
+                                <input type="text" placeholder="Digite o valor do frete" class="form-control"
+                                    formControlName="valor_frete">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="inputName">Valor do Desconto</label>
+                                <input type="text" placeholder="Digite o valor do desconto" class="form-control"
+                                    formControlName="desconto">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="inputName">Plataforma</label>
+                                <select formControlName="plataforma" class="form-control select2" style="width: 100%;"
+                                    [compareWith]="compararPlataformas">
+                                    <option>Selecione uma plataforma</option>
+                                    <option *ngFor="let plataforma of plataformas | async" [ngValue]="plataforma">{{
+                                        plataforma.descricao }}</option>
+                                </select>
+                                <small class="form-text text-danger" *ngIf="
+                                  !formularioCompra.get('plataforma')?.valid &&
+                                  formularioCompra.get('plataforma')?.touched
+                                ">Selecione a plataforma!</small>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="inputName">Status da Compra</label>
+                                <select formControlName="status_compra" class="form-control select2"
+                                    style="width: 100%;" [compareWith]="compararPlataformas">
+                                    <option>Selecione o status</option>
+                                    <option *ngFor="let statusCompra of listaStatusCompra | async"
+                                        [ngValue]="statusCompra">
+                                        {{
+                                        statusCompra.descricao }}</option>
+                                </select>
+                                <small class="form-text text-danger" *ngIf="
+                                  !formularioCompra.get('status_compra')?.valid &&
+                                  formularioCompra.get('status_compra')?.touched
+                                ">Selecione o status da compra!</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-secondary" routerLink="/compras">Cancelar</button>
+                            <button type="submit" class="btn btn-success float-right">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <app-listar-itens-compra *ngIf="id"></app-listar-itens-compra>
+</div>
